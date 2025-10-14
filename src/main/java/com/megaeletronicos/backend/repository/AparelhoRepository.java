@@ -25,10 +25,10 @@ public interface AparelhoRepository extends JpaRepository<Aparelho, Long> {
     
     List<Aparelho> findByStatus(String status);
     
-    @Query("SELECT a FROM Aparelho a WHERE LOWER(a.modelo) LIKE LOWER(CONCAT('%', :modelo, '%'))")
+    @Query("SELECT a FROM Aparelho a WHERE LOWER(CAST(a.modelo AS text)) LIKE LOWER(CONCAT('%', :modelo, '%'))")
     List<Aparelho> findByModeloContainingIgnoreCase(@Param("modelo") String modelo);
     
-    @Query("SELECT a FROM Aparelho a WHERE LOWER(a.marca) LIKE LOWER(CONCAT('%', :marca, '%'))")
+    @Query("SELECT a FROM Aparelho a WHERE LOWER(CAST(a.marca AS text)) LIKE LOWER(CONCAT('%', :marca, '%'))")
     List<Aparelho> findByMarcaContainingIgnoreCase(@Param("marca") String marca);
     
     @Query("SELECT a FROM Aparelho a WHERE a.cliente.id = :clienteId")
@@ -51,11 +51,11 @@ public interface AparelhoRepository extends JpaRepository<Aparelho, Long> {
     
     // Busca com filtros e paginação
     @Query("SELECT a FROM Aparelho a " +
-           "WHERE (:imei IS NULL OR a.imei LIKE %:imei%) " +
-           "AND (:modelo IS NULL OR LOWER(a.modelo) LIKE LOWER(CONCAT('%', :modelo, '%'))) " +
-           "AND (:marca IS NULL OR LOWER(a.marca) LIKE LOWER(CONCAT('%', :marca, '%'))) " +
-           "AND (:clienteNome IS NULL OR LOWER(a.cliente.nome) LIKE LOWER(CONCAT('%', :clienteNome, '%'))) " +
-           "AND (:empresaNome IS NULL OR LOWER(a.empresa.razaoSocial) LIKE LOWER(CONCAT('%', :empresaNome, '%'))) " +
+           "WHERE (:imei IS NULL OR CAST(a.imei AS text) LIKE CONCAT('%', :imei, '%')) " +
+           "AND (:modelo IS NULL OR LOWER(CAST(a.modelo AS text)) LIKE LOWER(CONCAT('%', :modelo, '%'))) " +
+           "AND (:marca IS NULL OR LOWER(CAST(a.marca AS text)) LIKE LOWER(CONCAT('%', :marca, '%'))) " +
+           "AND (:clienteNome IS NULL OR LOWER(CAST(a.cliente.nome AS text)) LIKE LOWER(CONCAT('%', :clienteNome, '%'))) " +
+           "AND (:empresaNome IS NULL OR LOWER(CAST(a.empresa.razaoSocial AS text)) LIKE LOWER(CONCAT('%', :empresaNome, '%'))) " +
            "AND (:status IS NULL OR a.status = :status) " +
            "AND (:dataInicio IS NULL OR a.dataCadastro >= :dataInicio) " +
            "AND (:dataFim IS NULL OR a.dataCadastro <= :dataFim)")
