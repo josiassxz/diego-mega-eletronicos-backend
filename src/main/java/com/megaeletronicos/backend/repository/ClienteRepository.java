@@ -5,6 +5,7 @@ import com.megaeletronicos.backend.entity.Cliente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+public interface ClienteRepository extends JpaRepository<Cliente, Long>, JpaSpecificationExecutor<Cliente> {
     
     Optional<Cliente> findByEmail(String email);
     
@@ -35,15 +36,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     @Query("SELECT COUNT(c) FROM Cliente c WHERE c.dataCadastro >= :dataInicio")
     Long countByDataCadastroAfter(@Param("dataInicio") LocalDateTime dataInicio);
     
-    @Query("SELECT c FROM Cliente c")
-    Page<Cliente> buscarComFiltros(
-        @Param("nome") String nome,
-        @Param("email") String email,
-        @Param("cpf") String cpf,
-        @Param("whatsapp") String whatsapp,
-        @Param("status") String status,
-        @Param("dataInicio") LocalDateTime dataInicio,
-        @Param("dataFim") LocalDateTime dataFim,
-        Pageable pageable
-    );
+
 }

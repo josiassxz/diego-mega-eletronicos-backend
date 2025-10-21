@@ -1,0 +1,73 @@
+# Compilação e build
+target/
+out/
+build/
+bin/
+classes/
+
+# Arquivos de log
+*.log
+
+# Configurações de IDEs
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+!/.mvn/wrapper/maven-wrapper.properties
+
+# Gradle
+.gradle/
+gradle-app.setting
+gradle-app.properties
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.swp
+*.bak
+*.~*
+*.orig
+
+# Ambiente
+.env
+.env.*
+!.env.example
+
+# Arquivos de configuração sensíveis
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+# Cobertura de testes
+*.exec
+coverage/
+jacoco.exec
+
+# Arquivos de dependências locais
+*.jar
+*.war
+*.ear
+
+# Arquivos de cache
+.cache/

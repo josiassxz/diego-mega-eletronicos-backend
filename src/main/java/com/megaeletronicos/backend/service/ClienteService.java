@@ -7,16 +7,18 @@ import com.megaeletronicos.backend.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import jakarta.persistence.criteria.Predicate;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import org.springframework.data.domain.PageImpl;
+
 
 @Service
 public class ClienteService {
@@ -148,40 +150,57 @@ public class ClienteService {
             (status == null || status.trim().isEmpty()) && 
             dataInicio == null && dataFim == null) {
             
-            return clienteRepository.buscarComFiltros(
-                null, null, null, null, null, null, null, pageable
-            );
+            return clienteRepository.findAll(pageable);
         }
         
         // Para filtros complexos, usar busca por especificação
         return buscarComEspecificacao(nome, email, cpf, whatsapp, status, dataInicio, dataFim, pageable);
     }
     
-    private Page<Cliente> buscarComEspecificacao(String nome, String email, String cpf, 
-                                                String whatsapp, String status, 
-                                                LocalDateTime dataInicio, LocalDateTime dataFim, 
-                                                Pageable pageable) {
-        // Por enquanto, retornar todos os clientes e filtrar em memória (não ideal para produção)
-        Page<Cliente> todosClientes = clienteRepository.findAll(pageable);
+    private Page<Cliente> buscarComEspecificacao(String nome, String email, String cpf, String whatsapp, 
+                                               String status, LocalDateTime dataInicio, LocalDateTime dataFim, 
+                                               Pageable pageable) {
+        Specification<Cliente> spec = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            
+            if (nome != null && !nome.trim().isEmpty()) {
+                predicates.add(criteriaBuilder.like(
+                    criteriaBuilder.lower(root.get("nome")), 
+                    "%" + nome.toLowerCase() + "%"
+                ));
+            }
+            
+            if (email != null && !email.trim().isEmpty()) {
+                predicates.add(criteriaBuilder.like(
+                    criteriaBuilder.lower(root.get("email")), 
+                    "%" + email.toLowerCase() + "%"
+                ));
+            }
+            
+            if (cpf != null && !cpf.trim().isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("cpf"), cpf));
+            }
+            
+            if (whatsapp != null && !whatsapp.trim().isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("whatsapp"), whatsapp));
+            }
+            
+            if (status != null && !status.trim().isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("status"), status));
+            }
+            
+            if (dataInicio != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("dataCadastro"), dataInicio));
+            }
+            
+            if (dataFim != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("dataCadastro"), dataFim));
+            }
+            
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
         
-        List<Cliente> clientesFiltrados = todosClientes.getContent().stream()
-            .filter(cliente -> nome == null || nome.trim().isEmpty() || 
-                    cliente.getNome().toLowerCase().contains(nome.toLowerCase()))
-            .filter(cliente -> email == null || email.trim().isEmpty() || 
-                    cliente.getEmail().toLowerCase().contains(email.toLowerCase()))
-            .filter(cliente -> cpf == null || cpf.trim().isEmpty() || 
-                    cliente.getCpf().equals(cpf))
-            .filter(cliente -> whatsapp == null || whatsapp.trim().isEmpty() || 
-                    cliente.getWhatsapp().equals(whatsapp))
-            .filter(cliente -> status == null || status.trim().isEmpty() || 
-                    cliente.getStatus().equals(status))
-            .filter(cliente -> dataInicio == null || 
-                    cliente.getDataCadastro().isAfter(dataInicio) || cliente.getDataCadastro().isEqual(dataInicio))
-            .filter(cliente -> dataFim == null || 
-                    cliente.getDataCadastro().isBefore(dataFim) || cliente.getDataCadastro().isEqual(dataFim))
-            .collect(Collectors.toList());
-        
-        return new PageImpl<>(clientesFiltrados, pageable, clientesFiltrados.size());
+        return clienteRepository.findAll(spec, pageable);
     }
     
     public Cliente atualizarStatus(Long id, String novoStatus) {
