@@ -137,14 +137,17 @@ public class ClienteController {
             @RequestParam(value = "referencia1Nome", required = false) String referencia1Nome,
             @RequestParam(value = "referencia1Relacao", required = false) String referencia1Relacao,
             @RequestParam(value = "referencia1Whatsapp", required = false) String referencia1Whatsapp,
+            @RequestParam(value = "referencia1Conhece", required = false) Boolean referencia1Conhece,
             // Segunda Referência
             @RequestParam(value = "referencia2Nome", required = false) String referencia2Nome,
             @RequestParam(value = "referencia2Relacao", required = false) String referencia2Relacao,
             @RequestParam(value = "referencia2Whatsapp", required = false) String referencia2Whatsapp,
+            @RequestParam(value = "referencia2Conhece", required = false) Boolean referencia2Conhece,
             // Terceira Referência
             @RequestParam(value = "referencia3Nome", required = false) String referencia3Nome,
             @RequestParam(value = "referencia3Relacao", required = false) String referencia3Relacao,
             @RequestParam(value = "referencia3Whatsapp", required = false) String referencia3Whatsapp,
+            @RequestParam(value = "referencia3Conhece", required = false) Boolean referencia3Conhece,
             @RequestParam(value = "fotoDocumento", required = false) MultipartFile fotoDocumento,
             @RequestParam(value = "fotoSelfie", required = false) MultipartFile fotoSelfie) {
         
@@ -179,14 +182,17 @@ public class ClienteController {
             cliente.setReferencia1Nome(referencia1Nome);
             cliente.setReferencia1Relacao(referencia1Relacao);
             cliente.setReferencia1Whatsapp(referencia1Whatsapp);
+            cliente.setReferencia1Conhece(referencia1Conhece);
             
             cliente.setReferencia2Nome(referencia2Nome);
             cliente.setReferencia2Relacao(referencia2Relacao);
             cliente.setReferencia2Whatsapp(referencia2Whatsapp);
+            cliente.setReferencia2Conhece(referencia2Conhece);
             
             cliente.setReferencia3Nome(referencia3Nome);
             cliente.setReferencia3Relacao(referencia3Relacao);
             cliente.setReferencia3Whatsapp(referencia3Whatsapp);
+            cliente.setReferencia3Conhece(referencia3Conhece);
 
             // Salvar cliente primeiro
             Cliente clienteSalvo = clienteService.salvar(cliente);
@@ -269,14 +275,17 @@ public class ClienteController {
             @RequestParam(value = "referencia1Nome", required = false) String referencia1Nome,
             @RequestParam(value = "referencia1Relacao", required = false) String referencia1Relacao,
             @RequestParam(value = "referencia1Whatsapp", required = false) String referencia1Whatsapp,
+            @RequestParam(value = "referencia1Conhece", required = false) Boolean referencia1Conhece,
             // Segunda Referência
             @RequestParam(value = "referencia2Nome", required = false) String referencia2Nome,
             @RequestParam(value = "referencia2Relacao", required = false) String referencia2Relacao,
             @RequestParam(value = "referencia2Whatsapp", required = false) String referencia2Whatsapp,
+            @RequestParam(value = "referencia2Conhece", required = false) Boolean referencia2Conhece,
             // Terceira Referência
             @RequestParam(value = "referencia3Nome", required = false) String referencia3Nome,
             @RequestParam(value = "referencia3Relacao", required = false) String referencia3Relacao,
             @RequestParam(value = "referencia3Whatsapp", required = false) String referencia3Whatsapp,
+            @RequestParam(value = "referencia3Conhece", required = false) Boolean referencia3Conhece,
             @RequestParam(value = "fotoDocumento", required = false) MultipartFile fotoDocumento,
             @RequestParam(value = "fotoSelfie", required = false) MultipartFile fotoSelfie) {
         
@@ -319,14 +328,17 @@ public class ClienteController {
             cliente.setReferencia1Nome(referencia1Nome);
             cliente.setReferencia1Relacao(referencia1Relacao);
             cliente.setReferencia1Whatsapp(referencia1Whatsapp);
+            cliente.setReferencia1Conhece(referencia1Conhece);
             // Segunda Referência
             cliente.setReferencia2Nome(referencia2Nome);
             cliente.setReferencia2Relacao(referencia2Relacao);
             cliente.setReferencia2Whatsapp(referencia2Whatsapp);
+            cliente.setReferencia2Conhece(referencia2Conhece);
             // Terceira Referência
             cliente.setReferencia3Nome(referencia3Nome);
             cliente.setReferencia3Relacao(referencia3Relacao);
             cliente.setReferencia3Whatsapp(referencia3Whatsapp);
+            cliente.setReferencia3Conhece(referencia3Conhece);
 
             // Atualizar foto do documento se fornecida
             if (fotoDocumento != null && !fotoDocumento.isEmpty()) {

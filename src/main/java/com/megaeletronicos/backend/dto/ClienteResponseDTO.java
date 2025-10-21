@@ -24,16 +24,19 @@ public class ClienteResponseDTO {
     private String referencia1Nome;
     private String referencia1Relacao;
     private String referencia1Whatsapp;
+    private Boolean referencia1Conhece;
     
     // Segunda Referência
     private String referencia2Nome;
     private String referencia2Relacao;
     private String referencia2Whatsapp;
+    private Boolean referencia2Conhece;
     
     // Terceira Referência
     private String referencia3Nome;
     private String referencia3Relacao;
     private String referencia3Whatsapp;
+    private Boolean referencia3Conhece;
     
     public ClienteResponseDTO() {}
     
@@ -56,14 +59,17 @@ public class ClienteResponseDTO {
         this.referencia1Nome = cliente.getReferencia1Nome();
         this.referencia1Relacao = cliente.getReferencia1Relacao();
         this.referencia1Whatsapp = cliente.getReferencia1Whatsapp();
+        this.referencia1Conhece = cliente.getReferencia1Conhece();
         
         this.referencia2Nome = cliente.getReferencia2Nome();
         this.referencia2Relacao = cliente.getReferencia2Relacao();
         this.referencia2Whatsapp = cliente.getReferencia2Whatsapp();
+        this.referencia2Conhece = cliente.getReferencia2Conhece();
         
         this.referencia3Nome = cliente.getReferencia3Nome();
         this.referencia3Relacao = cliente.getReferencia3Relacao();
         this.referencia3Whatsapp = cliente.getReferencia3Whatsapp();
+        this.referencia3Conhece = cliente.getReferencia3Conhece();
     }
     
     // Getters e Setters
@@ -115,6 +121,9 @@ public class ClienteResponseDTO {
     public String getReferencia1Whatsapp() { return referencia1Whatsapp; }
     public void setReferencia1Whatsapp(String referencia1Whatsapp) { this.referencia1Whatsapp = referencia1Whatsapp; }
     
+    public Boolean getReferencia1Conhece() { return referencia1Conhece; }
+    public void setReferencia1Conhece(Boolean referencia1Conhece) { this.referencia1Conhece = referencia1Conhece; }
+    
     // Getters e Setters para Segunda Referência
     public String getReferencia2Nome() { return referencia2Nome; }
     public void setReferencia2Nome(String referencia2Nome) { this.referencia2Nome = referencia2Nome; }
@@ -125,6 +134,9 @@ public class ClienteResponseDTO {
     public String getReferencia2Whatsapp() { return referencia2Whatsapp; }
     public void setReferencia2Whatsapp(String referencia2Whatsapp) { this.referencia2Whatsapp = referencia2Whatsapp; }
     
+    public Boolean getReferencia2Conhece() { return referencia2Conhece; }
+    public void setReferencia2Conhece(Boolean referencia2Conhece) { this.referencia2Conhece = referencia2Conhece; }
+    
     // Getters e Setters para Terceira Referência
     public String getReferencia3Nome() { return referencia3Nome; }
     public void setReferencia3Nome(String referencia3Nome) { this.referencia3Nome = referencia3Nome; }
@@ -134,4 +146,7 @@ public class ClienteResponseDTO {
     
     public String getReferencia3Whatsapp() { return referencia3Whatsapp; }
     public void setReferencia3Whatsapp(String referencia3Whatsapp) { this.referencia3Whatsapp = referencia3Whatsapp; }
+    
+    public Boolean getReferencia3Conhece() { return referencia3Conhece; }
+    public void setReferencia3Conhece(Boolean referencia3Conhece) { this.referencia3Conhece = referencia3Conhece; }
 }
