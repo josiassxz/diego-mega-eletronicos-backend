@@ -142,7 +142,11 @@ public class Cliente {
     @Column
     private Boolean referencia3Conhece;
     
-    // Novos campos para o sistema
+    // Campo de observação (máximo 1000 caracteres)
+    @Column(length = 1000)
+    private String observacao;
+    
+    // Status e datas
     @Column(nullable = false)
     private String status = "Pendente"; // Pendente, Aprovado, Recusado, Em Análise, Vendido
     
@@ -294,6 +298,9 @@ public class Cliente {
 
     public Boolean getReferencia3Conhece() { return referencia3Conhece; }
     public void setReferencia3Conhece(Boolean referencia3Conhece) { this.referencia3Conhece = referencia3Conhece; }
+    
+    public String getObservacao() { return observacao; }
+    public void setObservacao(String observacao) { this.observacao = observacao; }
     
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }

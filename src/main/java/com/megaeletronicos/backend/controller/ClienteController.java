@@ -148,6 +148,7 @@ public class ClienteController {
             @RequestParam(value = "referencia3Relacao", required = false) String referencia3Relacao,
             @RequestParam(value = "referencia3Whatsapp", required = false) String referencia3Whatsapp,
             @RequestParam(value = "referencia3Conhece", required = false) Boolean referencia3Conhece,
+            @RequestParam(value = "observacao", required = false) String observacao,
             @RequestParam(value = "fotoDocumento", required = false) MultipartFile fotoDocumento,
             @RequestParam(value = "fotoSelfie", required = false) MultipartFile fotoSelfie) {
         
@@ -193,6 +194,8 @@ public class ClienteController {
             cliente.setReferencia3Relacao(referencia3Relacao);
             cliente.setReferencia3Whatsapp(referencia3Whatsapp);
             cliente.setReferencia3Conhece(referencia3Conhece);
+            
+            cliente.setObservacao(observacao);
 
             // Salvar cliente primeiro
             Cliente clienteSalvo = clienteService.salvar(cliente);
@@ -286,6 +289,7 @@ public class ClienteController {
             @RequestParam(value = "referencia3Relacao", required = false) String referencia3Relacao,
             @RequestParam(value = "referencia3Whatsapp", required = false) String referencia3Whatsapp,
             @RequestParam(value = "referencia3Conhece", required = false) Boolean referencia3Conhece,
+            @RequestParam(value = "observacao", required = false) String observacao,
             @RequestParam(value = "fotoDocumento", required = false) MultipartFile fotoDocumento,
             @RequestParam(value = "fotoSelfie", required = false) MultipartFile fotoSelfie) {
         
@@ -339,6 +343,8 @@ public class ClienteController {
             cliente.setReferencia3Relacao(referencia3Relacao);
             cliente.setReferencia3Whatsapp(referencia3Whatsapp);
             cliente.setReferencia3Conhece(referencia3Conhece);
+            
+            cliente.setObservacao(observacao);
 
             // Atualizar foto do documento se fornecida
             if (fotoDocumento != null && !fotoDocumento.isEmpty()) {

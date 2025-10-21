@@ -38,6 +38,9 @@ public class ClienteResponseDTO {
     private String referencia3Whatsapp;
     private Boolean referencia3Conhece;
     
+    // Campo de observação
+    private String observacao;
+    
     public ClienteResponseDTO() {}
     
     public ClienteResponseDTO(Cliente cliente) {
@@ -70,6 +73,8 @@ public class ClienteResponseDTO {
         this.referencia3Relacao = cliente.getReferencia3Relacao();
         this.referencia3Whatsapp = cliente.getReferencia3Whatsapp();
         this.referencia3Conhece = cliente.getReferencia3Conhece();
+        
+        this.observacao = cliente.getObservacao();
     }
     
     // Getters e Setters
@@ -149,4 +154,7 @@ public class ClienteResponseDTO {
     
     public Boolean getReferencia3Conhece() { return referencia3Conhece; }
     public void setReferencia3Conhece(Boolean referencia3Conhece) { this.referencia3Conhece = referencia3Conhece; }
+    
+    public String getObservacao() { return observacao; }
+    public void setObservacao(String observacao) { this.observacao = observacao; }
 }

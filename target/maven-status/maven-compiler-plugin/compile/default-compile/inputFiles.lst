@@ -14,6 +14,7 @@
 /Users/josiassiqueira/Documents/NOVO BACK E FRONTEND/mega-eletronicos-backend/src/main/java/com/megaeletronicos/backend/repository/AparelhoRepository.java
 /Users/josiassiqueira/Documents/NOVO BACK E FRONTEND/mega-eletronicos-backend/src/main/java/com/megaeletronicos/backend/service/AuthService.java
 /Users/josiassiqueira/Documents/NOVO BACK E FRONTEND/mega-eletronicos-backend/src/main/java/com/megaeletronicos/backend/dto/UpdateAparelhoDTO.java
+/Users/josiassiqueira/Documents/NOVO BACK E FRONTEND/mega-eletronicos-backend/src/main/java/com/megaeletronicos/backend/specification/EmpresaSpecifications.java
 /Users/josiassiqueira/Documents/NOVO BACK E FRONTEND/mega-eletronicos-backend/src/main/java/com/megaeletronicos/backend/repository/UsuarioRepository.java
 /Users/josiassiqueira/Documents/NOVO BACK E FRONTEND/mega-eletronicos-backend/src/main/java/com/megaeletronicos/backend/dto/EmpresaRequestDTO.java
 /Users/josiassiqueira/Documents/NOVO BACK E FRONTEND/mega-eletronicos-backend/src/main/java/com/megaeletronicos/backend/dto/CreateAparelhoDTO.java
