@@ -69,6 +69,18 @@ public class FileStorageService {
         }
         
         byte[] arquivoBytes = Files.readAllBytes(caminhoArquivo);
-        return Base64.getEncoder().encodeToString(arquivoBytes);
+        String base64 = Base64.getEncoder().encodeToString(arquivoBytes);
+        
+        // Determinar o tipo MIME baseado na extensão do arquivo
+        String mimeType = "data:image/jpeg;base64,"; // padrão para imagens
+        if (nomeArquivo.toLowerCase().endsWith(".pdf")) {
+            mimeType = "data:application/pdf;base64,";
+        } else if (nomeArquivo.toLowerCase().endsWith(".png")) {
+            mimeType = "data:image/png;base64,";
+        } else if (nomeArquivo.toLowerCase().endsWith(".jpg") || nomeArquivo.toLowerCase().endsWith(".jpeg")) {
+            mimeType = "data:image/jpeg;base64,";
+        }
+        
+        return mimeType + base64;
     }
 }
