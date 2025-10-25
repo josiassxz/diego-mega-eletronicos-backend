@@ -113,7 +113,7 @@ public class ClienteController {
             @RequestParam("nome") String nome,
             @RequestParam("email") String email,
             @RequestParam("cpf") String cpf,
-            @RequestParam("rg") String rg,
+            @RequestParam(value = "rg", required = false) String rg,
             @RequestParam("telefone") String telefone,
             @RequestParam("whatsapp") String whatsapp,
             @RequestParam("cep") String cep,
@@ -123,12 +123,12 @@ public class ClienteController {
             @RequestParam("bairro") String bairro,
             @RequestParam("cidade") String cidade,
             @RequestParam("estado") String estado,
-            @RequestParam("nomeMae") String nomeMae,
+            @RequestParam(value = "nomeMae", required = false) String nomeMae,
             @RequestParam("dataNascimento") String dataNascimento,
-            @RequestParam("sexo") String sexo,
+            @RequestParam(value = "sexo", required = false) String sexo,
             @RequestParam("estadoCivil") String estadoCivil,
             @RequestParam("naturezaOcupacao") String naturezaOcupacao,
-            @RequestParam("profissao") String profissao,
+            @RequestParam(value = "profissao", required = false) String profissao,
             @RequestParam(value = "nomeEmpresa", required = false) String nomeEmpresa,
             @RequestParam("rendaMensal") Double rendaMensal,
             @RequestParam(value = "comprovacaoRenda", required = false) String comprovacaoRenda,
@@ -150,7 +150,11 @@ public class ClienteController {
             @RequestParam(value = "referencia3Conhece", required = false) Boolean referencia3Conhece,
             @RequestParam(value = "observacao", required = false) String observacao,
             @RequestParam(value = "fotoDocumento", required = false) MultipartFile fotoDocumento,
-            @RequestParam(value = "fotoSelfie", required = false) MultipartFile fotoSelfie) {
+            @RequestParam(value = "fotoSelfie", required = false) MultipartFile fotoSelfie,
+            // Novos documentos
+            @RequestParam(value = "documentoPessoal", required = false) MultipartFile documentoPessoal,
+            @RequestParam(value = "extratoBancarioComprovanteRenda", required = false) MultipartFile extratoBancarioComprovanteRenda,
+            @RequestParam(value = "comprovanteEndereco", required = false) MultipartFile comprovanteEndereco) {
         
         try {
             // Criar objeto Cliente
@@ -201,19 +205,40 @@ public class ClienteController {
             Cliente clienteSalvo = clienteService.salvar(cliente);
 
             // Salvar fotos se fornecidas
+            boolean arquivosSalvos = false;
+            
             if (fotoDocumento != null && !fotoDocumento.isEmpty()) {
                 String nomeArquivoDocumento = fileStorageService.salvarArquivo(fotoDocumento);
                 clienteSalvo.setFotoDocumento(nomeArquivoDocumento);
+                arquivosSalvos = true;
             }
 
             if (fotoSelfie != null && !fotoSelfie.isEmpty()) {
                 String nomeArquivoSelfie = fileStorageService.salvarArquivo(fotoSelfie);
                 clienteSalvo.setFotoSelfie(nomeArquivoSelfie);
+                arquivosSalvos = true;
+            }
+
+            if (documentoPessoal != null && !documentoPessoal.isEmpty()) {
+                String nomeArquivoDocumentoPessoal = fileStorageService.salvarArquivo(documentoPessoal);
+                clienteSalvo.setDocumentoPessoal(nomeArquivoDocumentoPessoal);
+                arquivosSalvos = true;
+            }
+
+            if (extratoBancarioComprovanteRenda != null && !extratoBancarioComprovanteRenda.isEmpty()) {
+                String nomeArquivoExtrato = fileStorageService.salvarArquivo(extratoBancarioComprovanteRenda);
+                clienteSalvo.setExtratoBancarioComprovanteRenda(nomeArquivoExtrato);
+                arquivosSalvos = true;
+            }
+
+            if (comprovanteEndereco != null && !comprovanteEndereco.isEmpty()) {
+                String nomeArquivoComprovante = fileStorageService.salvarArquivo(comprovanteEndereco);
+                clienteSalvo.setComprovanteEndereco(nomeArquivoComprovante);
+                arquivosSalvos = true;
             }
 
             // Atualizar cliente com os nomes dos arquivos
-            if ((fotoDocumento != null && !fotoDocumento.isEmpty()) || 
-                (fotoSelfie != null && !fotoSelfie.isEmpty())) {
+            if (arquivosSalvos) {
                 clienteSalvo = clienteService.salvar(clienteSalvo);
             }
 
@@ -247,14 +272,14 @@ public class ClienteController {
         }
     }
     
-    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "/{id}/com-fotos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Atualizar cliente com fotos")
     public ResponseEntity<?> atualizarComFotos(
             @PathVariable Long id,
             @RequestParam("nome") String nome,
             @RequestParam("email") String email,
             @RequestParam("cpf") String cpf,
-            @RequestParam("rg") String rg,
+            @RequestParam(value = "rg", required = false) String rg,
             @RequestParam("telefone") String telefone,
             @RequestParam("whatsapp") String whatsapp,
             @RequestParam("cep") String cep,
@@ -264,12 +289,12 @@ public class ClienteController {
             @RequestParam("bairro") String bairro,
             @RequestParam("cidade") String cidade,
             @RequestParam("estado") String estado,
-            @RequestParam("nomeMae") String nomeMae,
+            @RequestParam(value = "nomeMae", required = false) String nomeMae,
             @RequestParam("dataNascimento") String dataNascimento,
-            @RequestParam("sexo") String sexo,
+            @RequestParam(value = "sexo", required = false) String sexo,
             @RequestParam("estadoCivil") String estadoCivil,
             @RequestParam("naturezaOcupacao") String naturezaOcupacao,
-            @RequestParam("profissao") String profissao,
+            @RequestParam(value = "profissao", required = false) String profissao,
             @RequestParam(value = "nomeEmpresa", required = false) String nomeEmpresa,
             @RequestParam("rendaMensal") Double rendaMensal,
             @RequestParam(value = "comprovacaoRenda", required = false) String comprovacaoRenda,
@@ -291,7 +316,11 @@ public class ClienteController {
             @RequestParam(value = "referencia3Conhece", required = false) Boolean referencia3Conhece,
             @RequestParam(value = "observacao", required = false) String observacao,
             @RequestParam(value = "fotoDocumento", required = false) MultipartFile fotoDocumento,
-            @RequestParam(value = "fotoSelfie", required = false) MultipartFile fotoSelfie) {
+            @RequestParam(value = "fotoSelfie", required = false) MultipartFile fotoSelfie,
+            // Novos documentos
+            @RequestParam(value = "documentoPessoal", required = false) MultipartFile documentoPessoal,
+            @RequestParam(value = "extratoBancarioComprovanteRenda", required = false) MultipartFile extratoBancarioComprovanteRenda,
+            @RequestParam(value = "comprovanteEndereco", required = false) MultipartFile comprovanteEndereco) {
         
         try {
             // Verificar se o cliente existe
@@ -374,6 +403,51 @@ public class ClienteController {
                 // Salvar nova foto
                 String nomeArquivoSelfie = fileStorageService.salvarArquivo(fotoSelfie);
                 cliente.setFotoSelfie(nomeArquivoSelfie);
+            }
+
+            // Atualizar documento pessoal se fornecido
+            if (documentoPessoal != null && !documentoPessoal.isEmpty()) {
+                // Deletar documento anterior se existir
+                if (cliente.getDocumentoPessoal() != null) {
+                    try {
+                        fileStorageService.deletarArquivo(cliente.getDocumentoPessoal());
+                    } catch (IOException e) {
+                        System.err.println("Erro ao deletar documento pessoal anterior: " + e.getMessage());
+                    }
+                }
+                // Salvar novo documento
+                String nomeArquivoDocumentoPessoal = fileStorageService.salvarArquivo(documentoPessoal);
+                cliente.setDocumentoPessoal(nomeArquivoDocumentoPessoal);
+            }
+
+            // Atualizar extrato bancário/comprovante de renda se fornecido
+            if (extratoBancarioComprovanteRenda != null && !extratoBancarioComprovanteRenda.isEmpty()) {
+                // Deletar documento anterior se existir
+                if (cliente.getExtratoBancarioComprovanteRenda() != null) {
+                    try {
+                        fileStorageService.deletarArquivo(cliente.getExtratoBancarioComprovanteRenda());
+                    } catch (IOException e) {
+                        System.err.println("Erro ao deletar extrato bancário anterior: " + e.getMessage());
+                    }
+                }
+                // Salvar novo documento
+                String nomeArquivoExtrato = fileStorageService.salvarArquivo(extratoBancarioComprovanteRenda);
+                cliente.setExtratoBancarioComprovanteRenda(nomeArquivoExtrato);
+            }
+
+            // Atualizar comprovante de endereço se fornecido
+            if (comprovanteEndereco != null && !comprovanteEndereco.isEmpty()) {
+                // Deletar documento anterior se existir
+                if (cliente.getComprovanteEndereco() != null) {
+                    try {
+                        fileStorageService.deletarArquivo(cliente.getComprovanteEndereco());
+                    } catch (IOException e) {
+                        System.err.println("Erro ao deletar comprovante de endereço anterior: " + e.getMessage());
+                    }
+                }
+                // Salvar novo documento
+                String nomeArquivoComprovante = fileStorageService.salvarArquivo(comprovanteEndereco);
+                cliente.setComprovanteEndereco(nomeArquivoComprovante);
             }
 
             // Salvar cliente atualizado
@@ -565,6 +639,42 @@ public class ClienteController {
                     }
                 } catch (IOException e) {
                     System.err.println("Erro ao converter foto selfie para base64: " + e.getMessage());
+                }
+            }
+
+            // Obter documento pessoal em base64
+            if (cliente.getDocumentoPessoal() != null) {
+                try {
+                    String documentoPessoalBase64 = fileStorageService.obterArquivoBase64(cliente.getDocumentoPessoal());
+                    if (documentoPessoalBase64 != null) {
+                        fotos.put("documentoPessoal", documentoPessoalBase64);
+                    }
+                } catch (IOException e) {
+                    System.err.println("Erro ao converter documento pessoal para base64: " + e.getMessage());
+                }
+            }
+
+            // Obter extrato bancário/comprovante de renda em base64
+            if (cliente.getExtratoBancarioComprovanteRenda() != null) {
+                try {
+                    String extratoBase64 = fileStorageService.obterArquivoBase64(cliente.getExtratoBancarioComprovanteRenda());
+                    if (extratoBase64 != null) {
+                        fotos.put("extratoBancarioComprovanteRenda", extratoBase64);
+                    }
+                } catch (IOException e) {
+                    System.err.println("Erro ao converter extrato bancário para base64: " + e.getMessage());
+                }
+            }
+
+            // Obter comprovante de endereço em base64
+            if (cliente.getComprovanteEndereco() != null) {
+                try {
+                    String comprovanteEnderecoBase64 = fileStorageService.obterArquivoBase64(cliente.getComprovanteEndereco());
+                    if (comprovanteEnderecoBase64 != null) {
+                        fotos.put("comprovanteEndereco", comprovanteEnderecoBase64);
+                    }
+                } catch (IOException e) {
+                    System.err.println("Erro ao converter comprovante de endereço para base64: " + e.getMessage());
                 }
             }
             

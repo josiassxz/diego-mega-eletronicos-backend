@@ -96,6 +96,16 @@ public class Cliente {
     @Column
     private String fotoSelfie;
     
+    // Novos campos para documentos adicionais
+    @Column
+    private String documentoPessoal;
+    
+    @Column
+    private String extratoBancarioComprovanteRenda;
+    
+    @Column
+    private String comprovanteEndereco;
+    
     // Indica se possui carteira assinada ou é aposentado ("Sim"/"Não")
     @Column
     private String possuiCarteiraAssinadaOuAposentado;
@@ -253,6 +263,15 @@ public class Cliente {
 
     public String getFotoSelfie() { return fotoSelfie; }
     public void setFotoSelfie(String fotoSelfie) { this.fotoSelfie = fotoSelfie; }
+    
+    public String getDocumentoPessoal() { return documentoPessoal; }
+    public void setDocumentoPessoal(String documentoPessoal) { this.documentoPessoal = documentoPessoal; }
+    
+    public String getExtratoBancarioComprovanteRenda() { return extratoBancarioComprovanteRenda; }
+    public void setExtratoBancarioComprovanteRenda(String extratoBancarioComprovanteRenda) { this.extratoBancarioComprovanteRenda = extratoBancarioComprovanteRenda; }
+    
+    public String getComprovanteEndereco() { return comprovanteEndereco; }
+    public void setComprovanteEndereco(String comprovanteEndereco) { this.comprovanteEndereco = comprovanteEndereco; }
     
     public String getWhatsapp() { return whatsapp; }
     public void setWhatsapp(String whatsapp) { this.whatsapp = whatsapp; }
