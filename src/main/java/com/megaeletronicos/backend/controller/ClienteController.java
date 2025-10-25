@@ -116,6 +116,7 @@ public class ClienteController {
             @RequestParam(value = "rg", required = false) String rg,
             @RequestParam("telefone") String telefone,
             @RequestParam("whatsapp") String whatsapp,
+            @RequestParam(value = "cpfVendedor", required = false) String cpfVendedor,
             @RequestParam("cep") String cep,
             @RequestParam("rua") String rua,
             @RequestParam("numero") String numero,
@@ -165,6 +166,7 @@ public class ClienteController {
             cliente.setRg(rg);
             cliente.setTelefone(telefone);
             cliente.setWhatsapp(whatsapp);
+            cliente.setCpfVendedor(cpfVendedor);
             cliente.setCep(cep);
             cliente.setRua(rua);
             cliente.setNumero(numero);
@@ -282,6 +284,7 @@ public class ClienteController {
             @RequestParam(value = "rg", required = false) String rg,
             @RequestParam("telefone") String telefone,
             @RequestParam("whatsapp") String whatsapp,
+            @RequestParam(value = "cpfVendedor", required = false) String cpfVendedor,
             @RequestParam("cep") String cep,
             @RequestParam("rua") String rua,
             @RequestParam("numero") String numero,
@@ -340,6 +343,7 @@ public class ClienteController {
             cliente.setRg(rg);
             cliente.setTelefone(telefone);
             cliente.setWhatsapp(whatsapp);
+            cliente.setCpfVendedor(cpfVendedor);
             cliente.setCep(cep);
             cliente.setRua(rua);
             cliente.setNumero(numero);

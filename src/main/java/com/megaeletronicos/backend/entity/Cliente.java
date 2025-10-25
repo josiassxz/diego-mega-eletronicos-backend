@@ -41,6 +41,9 @@ public class Cliente {
     @Column(nullable = false, length = 15)
     private String whatsapp;
     
+    @Column(length = 14)
+    private String cpfVendedor;
+    
     // Campos opcionais para manter compatibilidade
     @Column(length = 20)
     private String rg;
@@ -275,6 +278,9 @@ public class Cliente {
     
     public String getWhatsapp() { return whatsapp; }
     public void setWhatsapp(String whatsapp) { this.whatsapp = whatsapp; }
+    
+    public String getCpfVendedor() { return cpfVendedor; }
+    public void setCpfVendedor(String cpfVendedor) { this.cpfVendedor = cpfVendedor; }
     
     public String getPossuiCarteiraAssinadaOuAposentado() { return possuiCarteiraAssinadaOuAposentado; }
     public void setPossuiCarteiraAssinadaOuAposentado(String possuiCarteiraAssinadaOuAposentado) { this.possuiCarteiraAssinadaOuAposentado = possuiCarteiraAssinadaOuAposentado; }

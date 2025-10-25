@@ -4,24 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="563cea51-a678-4c3a-a8b7-df0ec2999f8f" name="Changes" comment="ajustado cliente conhece">
+    <list default="true" id="563cea51-a678-4c3a-a8b7-df0ec2999f8f" name="Changes" comment="ajusado mimetype">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/megaeletronicos/backend/controller/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/megaeletronicos/backend/controller/ClienteController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/megaeletronicos/backend/dto/ClienteResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/megaeletronicos/backend/dto/ClienteResponseDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/megaeletronicos/backend/entity/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/megaeletronicos/backend/entity/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/megaeletronicos/backend/entity/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/megaeletronicos/backend/entity/Usuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/controller/AparelhoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/controller/AparelhoController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/controller/ClienteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/controller/ClienteController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/dto/AparelhoResponseDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/dto/AparelhoResponseDTO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/dto/ClienteResponseDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/dto/ClienteResponseDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/entity/Aparelho.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/entity/Aparelho.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/entity/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/entity/Cliente.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/repository/AparelhoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/repository/AparelhoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/entity/Usuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/entity/Usuario.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/repository/ClienteRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/repository/ClienteRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/service/AparelhoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/service/AparelhoService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/service/ClienteService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/service/ClienteService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/service/FileStorageService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/megaeletronicos/backend/service/FileStorageService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/1956d70a-3bc7-4a2e-9763-1f86c9354690.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/1a730806-77a5-48ef-972f-d0d7d7d594f7.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/1b4f1d59-607c-4976-a688-006f3d1dd5eb.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/266b8aad-aa36-4021-aed5-87c2e425f4b7.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/27933a66-e68b-43c9-a5e3-e2370968c95b.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/3fc2b814-77c3-4ac8-9307-312cf59527a4.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/6618db29-908d-4261-9b3b-abaca367f01c.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/6df4002a-da87-45ae-b0f2-e06a5b79590c.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/95e6f71b-e8a9-4cbc-a38b-6c49fe713d8a.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/ca1faf63-60c3-462a-ab61-67ee5031790b.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/cbaeba64-b14f-4036-b963-c920c22c283d.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/d45c103e-a4cc-4b14-a678-81306561bc87.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/f86c933d-1167-40cc-967c-642bc9c40089.jpeg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +148,39 @@
       <option name="project" value="LOCAL" />
       <updated>1761023044929</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="observacao cliente ok">
+      <option name="closed" value="true" />
+      <created>1761024107604</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1761024107604</updated>
+    </task>
+    <task id="LOCAL-00006" summary="ajustado filtro">
+      <option name="closed" value="true" />
+      <created>1761028912551</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1761028912551</updated>
+    </task>
+    <task id="LOCAL-00007" summary="ajustado upload de arquivos">
+      <option name="closed" value="true" />
+      <created>1761407429381</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1761407429381</updated>
+    </task>
+    <task id="LOCAL-00008" summary="ajusado mimetype">
+      <option name="closed" value="true" />
+      <created>1761409956428</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1761409956428</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -144,6 +188,10 @@
     <MESSAGE value="ajustado endpoint de editar fotos" />
     <MESSAGE value="ajustado para ficar igual ambiente" />
     <MESSAGE value="ajustado cliente conhece" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajustado cliente conhece" />
+    <MESSAGE value="observacao cliente ok" />
+    <MESSAGE value="ajustado filtro" />
+    <MESSAGE value="ajustado upload de arquivos" />
+    <MESSAGE value="ajusado mimetype" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajusado mimetype" />
   </component>
 </project>

@@ -11,6 +11,7 @@ public class ClienteResponseDTO {
     private String email;
     private String cpf;
     private String whatsapp;
+    private String cpfVendedor;
     private String possuiCarteiraAssinadaOuAposentado;
     private String estadoCivil;
     private LocalDate dataNascimento;
@@ -49,6 +50,7 @@ public class ClienteResponseDTO {
         this.email = cliente.getEmail();
         this.cpf = cliente.getCpf();
         this.whatsapp = cliente.getWhatsapp();
+        this.cpfVendedor = cliente.getCpfVendedor();
         this.possuiCarteiraAssinadaOuAposentado = cliente.getPossuiCarteiraAssinadaOuAposentado();
         this.estadoCivil = cliente.getEstadoCivil();
         this.dataNascimento = cliente.getDataNascimento();
@@ -92,6 +94,9 @@ public class ClienteResponseDTO {
     
     public String getWhatsapp() { return whatsapp; }
     public void setWhatsapp(String whatsapp) { this.whatsapp = whatsapp; }
+
+    public String getCpfVendedor() { return cpfVendedor; }
+    public void setCpfVendedor(String cpfVendedor) { this.cpfVendedor = cpfVendedor; }
 
     public String getPossuiCarteiraAssinadaOuAposentado() { return possuiCarteiraAssinadaOuAposentado; }
     public void setPossuiCarteiraAssinadaOuAposentado(String possuiCarteiraAssinadaOuAposentado) { this.possuiCarteiraAssinadaOuAposentado = possuiCarteiraAssinadaOuAposentado; }

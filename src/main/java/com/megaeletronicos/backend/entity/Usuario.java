@@ -19,6 +19,11 @@ public class Usuario {
     @NotBlank(message = "Senha é obrigatória")
     @Column(nullable = false)
     private String senha;
+    
+    @NotBlank(message = "Perfil é obrigatório")
+    @Column(nullable = false)
+    private String perfil; // ADMIN, VENDEDOR, etc.
+    
 
     // Construtores
     public Usuario() {}
@@ -26,6 +31,13 @@ public class Usuario {
     public Usuario(String login, String senha) {
         this.login = login;
         this.senha = senha;
+        this.perfil = "ADMIN"; // Perfil padrão para compatibilidade
+    }
+    
+    public Usuario(String login, String senha, String perfil) {
+        this.login = login;
+        this.senha = senha;
+        this.perfil = perfil;
     }
 
     // Getters e Setters
@@ -37,4 +49,7 @@ public class Usuario {
 
     public String getSenha() { return senha; }
     public void setSenha(String senha) { this.senha = senha; }
+    
+    public String getPerfil() { return perfil; }
+    public void setPerfil(String perfil) { this.perfil = perfil; }
 }
