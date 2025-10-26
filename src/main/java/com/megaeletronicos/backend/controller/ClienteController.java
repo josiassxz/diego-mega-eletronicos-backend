@@ -7,6 +7,7 @@ import com.megaeletronicos.backend.dto.EstatisticasDTO;
 import com.megaeletronicos.backend.entity.Cliente;
 import com.megaeletronicos.backend.service.ClienteService;
 import com.megaeletronicos.backend.service.FileStorageService;
+import com.megaeletronicos.backend.service.VendedorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
@@ -48,6 +49,9 @@ public class ClienteController {
     
     @Autowired
     private FileStorageService fileStorageService;
+    
+    @Autowired
+    private VendedorService vendedorService;
     
     @GetMapping
     @Operation(summary = "Listar todos os clientes")
@@ -98,6 +102,29 @@ public class ClienteController {
     @Operation(summary = "Criar novo cliente")
     public ResponseEntity<?> criar(@Valid @RequestBody Cliente cliente) {
         try {
+            // Validar se o vendedor existe (se cpfVendedor foi fornecido)
+            if (cliente.getCpfVendedor() != null && !cliente.getCpfVendedor().trim().isEmpty()) {
+                // Tentar buscar com o CPF como está e também formatado
+                String cpfVendedor = cliente.getCpfVendedor();
+                boolean vendedorExiste = vendedorService.existePorCpf(cpfVendedor);
+                
+                // Se não encontrou, tentar com CPF formatado
+                if (!vendedorExiste && cpfVendedor.replaceAll("[^0-9]", "").length() == 11) {
+                    String cpfFormatado = vendedorService.formatarCpf(cpfVendedor);
+                    vendedorExiste = vendedorService.existePorCpf(cpfFormatado);
+                    // Se encontrou com CPF formatado, atualizar o cliente com o CPF formatado
+                    if (vendedorExiste) {
+                        cliente.setCpfVendedor(cpfFormatado);
+                    }
+                }
+                
+                if (!vendedorExiste) {
+                    Map<String, String> erro = new HashMap<>();
+                    erro.put("erro", "Vendedor com CPF " + cpfVendedor + " não encontrado");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+                }
+            }
+            
             Cliente clienteSalvo = clienteService.salvar(cliente);
             return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
         } catch (RuntimeException e) {
@@ -114,7 +141,7 @@ public class ClienteController {
             @RequestParam("email") String email,
             @RequestParam("cpf") String cpf,
             @RequestParam(value = "rg", required = false) String rg,
-            @RequestParam("telefone") String telefone,
+            @RequestParam(value = "telefone", required = false) String telefone,
             @RequestParam("whatsapp") String whatsapp,
             @RequestParam(value = "cpfVendedor", required = false) String cpfVendedor,
             @RequestParam("cep") String cep,
@@ -167,6 +194,30 @@ public class ClienteController {
             cliente.setTelefone(telefone);
             cliente.setWhatsapp(whatsapp);
             cliente.setCpfVendedor(cpfVendedor);
+            
+            // Validar se o vendedor existe (se cpfVendedor foi fornecido)
+            if (cpfVendedor != null && !cpfVendedor.trim().isEmpty()) {
+                boolean vendedorExiste = vendedorService.existePorCpf(cpfVendedor);
+                
+                // Se não encontrou, tentar com CPF formatado
+                if (!vendedorExiste && cpfVendedor.replaceAll("[^0-9]", "").length() == 11) {
+                    String cpfFormatado = vendedorService.formatarCpf(cpfVendedor);
+                    vendedorExiste = vendedorService.existePorCpf(cpfFormatado);
+                    // Se encontrou com CPF formatado, usar o CPF formatado
+                    if (vendedorExiste) {
+                        cliente.setCpfVendedor(cpfFormatado);
+                    }
+                }
+                
+                if (!vendedorExiste) {
+                    Map<String, String> erro = new HashMap<>();
+                    erro.put("erro", "Vendedor com CPF " + cpfVendedor + " não encontrado");
+                    return ResponseEntity.badRequest().body(erro);
+                }
+            }
+            
+
+            
             cliente.setCep(cep);
             cliente.setRua(rua);
             cliente.setNumero(numero);
@@ -202,6 +253,15 @@ public class ClienteController {
             cliente.setReferencia3Conhece(referencia3Conhece);
             
             cliente.setObservacao(observacao);
+
+            // Validar se o vendedor existe (se cpfVendedor foi fornecido)
+            if (cpfVendedor != null && !cpfVendedor.trim().isEmpty()) {
+                if (!vendedorService.existePorCpf(cpfVendedor)) {
+                    Map<String, String> erro = new HashMap<>();
+                    erro.put("erro", "Vendedor com CPF " + cpfVendedor + " não encontrado");
+                    return ResponseEntity.badRequest().body(erro);
+                }
+            }
 
             // Salvar cliente primeiro
             Cliente clienteSalvo = clienteService.salvar(cliente);
@@ -282,7 +342,7 @@ public class ClienteController {
             @RequestParam("email") String email,
             @RequestParam("cpf") String cpf,
             @RequestParam(value = "rg", required = false) String rg,
-            @RequestParam("telefone") String telefone,
+            @RequestParam(value = "telefone", required = false) String telefone,
             @RequestParam("whatsapp") String whatsapp,
             @RequestParam(value = "cpfVendedor", required = false) String cpfVendedor,
             @RequestParam("cep") String cep,
@@ -343,6 +403,27 @@ public class ClienteController {
             cliente.setRg(rg);
             cliente.setTelefone(telefone);
             cliente.setWhatsapp(whatsapp);
+            // Validar se o vendedor existe (se cpfVendedor foi fornecido)
+            if (cpfVendedor != null && !cpfVendedor.trim().isEmpty()) {
+                boolean vendedorExiste = vendedorService.existePorCpf(cpfVendedor);
+                
+                // Se não encontrou, tentar com CPF formatado
+                if (!vendedorExiste && cpfVendedor.replaceAll("[^0-9]", "").length() == 11) {
+                    String cpfFormatado = vendedorService.formatarCpf(cpfVendedor);
+                    vendedorExiste = vendedorService.existePorCpf(cpfFormatado);
+                    // Se encontrou com CPF formatado, usar o CPF formatado
+                    if (vendedorExiste) {
+                        cpfVendedor = cpfFormatado;
+                    }
+                }
+                
+                if (!vendedorExiste) {
+                    Map<String, String> erro = new HashMap<>();
+                    erro.put("erro", "Vendedor com CPF " + cpfVendedor + " não encontrado");
+                    return ResponseEntity.badRequest().body(erro);
+                }
+            }
+            
             cliente.setCpfVendedor(cpfVendedor);
             cliente.setCep(cep);
             cliente.setRua(rua);

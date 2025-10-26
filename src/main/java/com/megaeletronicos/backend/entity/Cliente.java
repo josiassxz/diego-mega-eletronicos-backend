@@ -41,8 +41,13 @@ public class Cliente {
     @Column(nullable = false, length = 15)
     private String whatsapp;
     
-    @Column(length = 14)
+    @Column(name = "cpf_vendedor", length = 14)
     private String cpfVendedor;
+    
+    // Relação com Vendedor através do CPF
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cpf_vendedor", referencedColumnName = "cpf", insertable = false, updatable = false)
+    private Vendedor vendedor;
     
     // Campos opcionais para manter compatibilidade
     @Column(length = 20)
@@ -281,6 +286,9 @@ public class Cliente {
     
     public String getCpfVendedor() { return cpfVendedor; }
     public void setCpfVendedor(String cpfVendedor) { this.cpfVendedor = cpfVendedor; }
+    
+    public Vendedor getVendedor() { return vendedor; }
+    public void setVendedor(Vendedor vendedor) { this.vendedor = vendedor; }
     
     public String getPossuiCarteiraAssinadaOuAposentado() { return possuiCarteiraAssinadaOuAposentado; }
     public void setPossuiCarteiraAssinadaOuAposentado(String possuiCarteiraAssinadaOuAposentado) { this.possuiCarteiraAssinadaOuAposentado = possuiCarteiraAssinadaOuAposentado; }
