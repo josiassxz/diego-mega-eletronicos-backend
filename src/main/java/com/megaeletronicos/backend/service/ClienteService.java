@@ -138,6 +138,7 @@ public class ClienteService {
             String cpf, 
             String whatsapp, 
             String status,
+            String cpfVendedor,
             LocalDateTime dataInicio, 
             LocalDateTime dataFim, 
             Pageable pageable) {
@@ -148,17 +149,18 @@ public class ClienteService {
             (cpf == null || cpf.trim().isEmpty()) && 
             (whatsapp == null || whatsapp.trim().isEmpty()) && 
             (status == null || status.trim().isEmpty()) && 
+            (cpfVendedor == null || cpfVendedor.trim().isEmpty()) &&
             dataInicio == null && dataFim == null) {
             
             return clienteRepository.findAll(pageable);
         }
         
         // Para filtros complexos, usar busca por especificação
-        return buscarComEspecificacao(nome, email, cpf, whatsapp, status, dataInicio, dataFim, pageable);
+        return buscarComEspecificacao(nome, email, cpf, whatsapp, status, cpfVendedor, dataInicio, dataFim, pageable);
     }
     
     private Page<Cliente> buscarComEspecificacao(String nome, String email, String cpf, String whatsapp, 
-                                               String status, LocalDateTime dataInicio, LocalDateTime dataFim, 
+                                               String status, String cpfVendedor, LocalDateTime dataInicio, LocalDateTime dataFim, 
                                                Pageable pageable) {
         Specification<Cliente> spec = (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -187,6 +189,10 @@ public class ClienteService {
             
             if (status != null && !status.trim().isEmpty()) {
                 predicates.add(criteriaBuilder.equal(root.get("status"), status));
+            }
+            
+            if (cpfVendedor != null && !cpfVendedor.trim().isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("cpfVendedor"), cpfVendedor));
             }
             
             if (dataInicio != null) {

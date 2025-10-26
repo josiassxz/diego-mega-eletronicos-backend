@@ -797,6 +797,7 @@ public class ClienteController {
             @RequestParam(required = false) String cpf,
             @RequestParam(required = false) String whatsapp,
             @RequestParam(required = false) String status,
+            @RequestParam(required = false) String cpfVendedor,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim,
             @RequestParam(defaultValue = "0") int page,
@@ -812,7 +813,7 @@ public class ClienteController {
             Pageable pageable = PageRequest.of(page, size, sort);
             
             Page<Cliente> clientes = clienteService.buscarComFiltros(
-                nome, email, cpf, whatsapp, status, dataInicio, dataFim, pageable
+                nome, email, cpf, whatsapp, status, cpfVendedor, dataInicio, dataFim, pageable
             );
             
             Page<ClienteResponseDTO> response = clientes.map(ClienteResponseDTO::new);
@@ -841,57 +842,58 @@ public class ClienteController {
         }
     }
     
-    @GetMapping("/export/csv")
-    @Operation(summary = "Exportar clientes para CSV")
-    public void exportarCSV(
-            @RequestParam(required = false) String nome,
-            @RequestParam(required = false) String email,
-            @RequestParam(required = false) String cpf,
-            @RequestParam(required = false) String whatsapp,
-            @RequestParam(required = false) String status,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim,
-            HttpServletResponse response) throws IOException {
+    // @GetMapping("/export/csv")
+    // @Operation(summary = "Exportar clientes para CSV")
+    // public void exportarCSV(
+    //         @RequestParam(required = false) String nome,
+    //         @RequestParam(required = false) String email,
+    //         @RequestParam(required = false) String cpf,
+    //         @RequestParam(required = false) String whatsapp,
+    //         @RequestParam(required = false) String status,
+    //         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,
+    //         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim,
+    //         @RequestParam(required = false) String cpfVendedor,
+    //         HttpServletResponse response) throws IOException {
         
-        response.setContentType("text/csv; charset=UTF-8");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, 
-                          "attachment; filename=\"clientes_" + 
-                          LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + 
-                          ".csv\"");
+    //     response.setContentType("text/csv; charset=UTF-8");
+    //     response.setHeader(HttpHeaders.CONTENT_DISPOSITION, 
+    //                       "attachment; filename=\"clientes_" + 
+    //                       LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + 
+    //                       ".csv\"");
         
-        // Buscar todos os clientes com os filtros (sem paginação)
-        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
-        Page<Cliente> clientes = clienteService.buscarComFiltros(
-            nome, email, cpf, whatsapp, status, dataInicio, dataFim, pageable
-        );
+    //     // Buscar todos os clientes com os filtros (sem paginação)
+    //     Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
+    //     Page<Cliente> clientes = clienteService.buscarComFiltros(
+    //         nome, email, cpf, whatsapp, status, dataInicio, dataFim, cpfVendedor, pageable
+    //     );
         
-        PrintWriter writer = response.getWriter();
+    //     PrintWriter writer = response.getWriter();
         
-        // Cabeçalho do CSV
-        writer.println("ID,Nome,CPF,Email,WhatsApp,Estado Civil,Data Nascimento,Status,Data Cadastro,Cidade,Estado");
+    //     // Cabeçalho do CSV
+    //     writer.println("ID,Nome,CPF,Email,WhatsApp,Estado Civil,Data Nascimento,Status,Data Cadastro,Cidade,Estado");
         
-        // Dados
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    //     // Dados
+    //     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    //     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         
-        for (Cliente cliente : clientes.getContent()) {
-            writer.println(String.format("%d,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
-                cliente.getId(),
-                cliente.getNome(),
-                cliente.getCpf(),
-                cliente.getEmail(),
-                cliente.getWhatsapp(),
-                cliente.getEstadoCivil(),
-                cliente.getDataNascimento() != null ? cliente.getDataNascimento().format(dateFormatter) : "",
-                cliente.getStatus(),
-                cliente.getDataCadastro() != null ? cliente.getDataCadastro().format(dateTimeFormatter) : "",
-                cliente.getCidade() != null ? cliente.getCidade() : "",
-                cliente.getEstado() != null ? cliente.getEstado() : ""
-            ));
-        }
+    //     for (Cliente cliente : clientes.getContent()) {
+    //         writer.println(String.format("%d,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
+    //             cliente.getId(),
+    //             cliente.getNome(),
+    //             cliente.getCpf(),
+    //             cliente.getEmail(),
+    //             cliente.getWhatsapp(),
+    //             cliente.getEstadoCivil(),
+    //             cliente.getDataNascimento() != null ? cliente.getDataNascimento().format(dateFormatter) : "",
+    //             cliente.getStatus(),
+    //             cliente.getDataCadastro() != null ? cliente.getDataCadastro().format(dateTimeFormatter) : "",
+    //             cliente.getCidade() != null ? cliente.getCidade() : "",
+    //             cliente.getEstado() != null ? cliente.getEstado() : ""
+    //         ));
+    //     }
         
-        writer.flush();
-    }
+    //     writer.flush();
+    // }
     
     @DeleteMapping("/{id}/foto-documento")
     @Operation(summary = "Deletar foto do documento")

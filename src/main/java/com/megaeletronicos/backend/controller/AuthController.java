@@ -43,9 +43,23 @@ public class AuthController {
         Optional<Usuario> usuario = authService.autenticar(login, senha);
         
         if (usuario.isPresent()) {
+            Usuario user = usuario.get();
+            Map<String, Object> usuarioData = new HashMap<>();
+            usuarioData.put("id", user.getId());
+            usuarioData.put("login", user.getLogin());
+            usuarioData.put("perfil", user.getPerfil());
+            
+            // Se for vendedor, buscar o CPF
+            if ("VENDEDOR".equalsIgnoreCase(user.getPerfil())) {
+                String cpfVendedor = authService.buscarCpfVendedor(user.getLogin());
+                if (cpfVendedor != null) {
+                    usuarioData.put("cpf", cpfVendedor);
+                }
+            }
+            
             Map<String, Object> resposta = new HashMap<>();
             resposta.put("mensagem", "Login realizado com sucesso");
-            resposta.put("usuario", usuario.get());
+            resposta.put("usuario", usuarioData);
             return ResponseEntity.ok(resposta);
         } else {
             Map<String, String> erro = new HashMap<>();

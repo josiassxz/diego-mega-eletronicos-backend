@@ -16,6 +16,8 @@ public interface VendedorRepository extends JpaRepository<Vendedor, Long>, JpaSp
     
     Optional<Vendedor> findByCpf(String cpf);
     
+    Optional<Vendedor> findByEmail(String email);
+    
     @Query("SELECT v FROM Vendedor v WHERE LOWER(v.nome) LIKE LOWER(CONCAT('%', :nome, '%'))")
     List<Vendedor> findByNomeContainingIgnoreCase(@Param("nome") String nome);
     
