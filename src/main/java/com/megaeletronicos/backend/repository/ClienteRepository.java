@@ -35,6 +35,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>, JpaSpec
     
     @Query("SELECT COUNT(c) FROM Cliente c WHERE c.dataCadastro >= :dataInicio")
     Long countByDataCadastroAfter(@Param("dataInicio") LocalDateTime dataInicio);
-    
 
+    // Contagens filtradas por vendedor
+    Long countByCpfVendedor(String cpfVendedor);
+    Long countByStatusAndCpfVendedor(String status, String cpfVendedor);
+    Long countByDataCadastroAfterAndCpfVendedor(LocalDateTime dataInicio, String cpfVendedor);
 }

@@ -98,18 +98,38 @@ public class ClienteService {
     
     // Novos métodos para estatísticas e filtros
     public EstatisticasDTO obterEstatisticas() {
-        Long totalClientes = clienteRepository.count();
+        return obterEstatisticas(null);
+    }
+
+    public EstatisticasDTO obterEstatisticas(String cpfVendedor) {
+        boolean filtrarPorVendedor = cpfVendedor != null && !cpfVendedor.trim().isEmpty();
+
+        Long totalClientes = filtrarPorVendedor
+                ? clienteRepository.countByCpfVendedor(cpfVendedor)
+                : clienteRepository.count();
         
         // Clientes cadastrados hoje (desde 00:00 até 23:59:59)
         LocalDateTime inicioHoje = LocalDateTime.now().with(LocalTime.MIN);
-        Long clientesHoje = clienteRepository.countByDataCadastroAfter(inicioHoje);
+        Long clientesHoje = filtrarPorVendedor
+                ? clienteRepository.countByDataCadastroAfterAndCpfVendedor(inicioHoje, cpfVendedor)
+                : clienteRepository.countByDataCadastroAfter(inicioHoje);
         
         // Contadores por status
-        Long clientesPendentes = clienteRepository.countByStatus("Pendente");
-        Long clientesAprovados = clienteRepository.countByStatus("Aprovado");
-        Long clientesRecusados = clienteRepository.countByStatus("Recusado");
-        Long clientesEmAnalise = clienteRepository.countByStatus("Em Análise");
-        Long clientesVendidos = clienteRepository.countByStatus("Vendido");
+        Long clientesPendentes = filtrarPorVendedor
+                ? clienteRepository.countByStatusAndCpfVendedor("Pendente", cpfVendedor)
+                : clienteRepository.countByStatus("Pendente");
+        Long clientesAprovados = filtrarPorVendedor
+                ? clienteRepository.countByStatusAndCpfVendedor("Aprovado", cpfVendedor)
+                : clienteRepository.countByStatus("Aprovado");
+        Long clientesRecusados = filtrarPorVendedor
+                ? clienteRepository.countByStatusAndCpfVendedor("Recusado", cpfVendedor)
+                : clienteRepository.countByStatus("Recusado");
+        Long clientesEmAnalise = filtrarPorVendedor
+                ? clienteRepository.countByStatusAndCpfVendedor("Em Análise", cpfVendedor)
+                : clienteRepository.countByStatus("Em Análise");
+        Long clientesVendidos = filtrarPorVendedor
+                ? clienteRepository.countByStatusAndCpfVendedor("Vendido", cpfVendedor)
+                : clienteRepository.countByStatus("Vendido");
         
         // Distribuição por status
         Map<String, Long> distribuicao = new HashMap<>();
@@ -131,7 +151,7 @@ public class ClienteService {
         
         return estatisticas;
     }
-    
+
     public Page<Cliente> buscarComFiltros(
             String nome, 
             String email, 
@@ -158,7 +178,7 @@ public class ClienteService {
         // Para filtros complexos, usar busca por especificação
         return buscarComEspecificacao(nome, email, cpf, whatsapp, status, cpfVendedor, dataInicio, dataFim, pageable);
     }
-    
+
     private Page<Cliente> buscarComEspecificacao(String nome, String email, String cpf, String whatsapp, 
                                                String status, String cpfVendedor, LocalDateTime dataInicio, LocalDateTime dataFim, 
                                                Pageable pageable) {
@@ -208,7 +228,7 @@ public class ClienteService {
         
         return clienteRepository.findAll(spec, pageable);
     }
-    
+
     public Cliente atualizarStatus(Long id, String novoStatus) {
         Optional<Cliente> clienteOpt = clienteRepository.findById(id);
         if (clienteOpt.isEmpty()) {

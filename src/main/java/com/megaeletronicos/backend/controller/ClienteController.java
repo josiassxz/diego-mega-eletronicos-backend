@@ -780,9 +780,11 @@ public class ClienteController {
     
     @GetMapping("/estatisticas")
     @Operation(summary = "Obter estatísticas do dashboard")
-    public ResponseEntity<EstatisticasDTO> obterEstatisticas() {
+    public ResponseEntity<EstatisticasDTO> obterEstatisticas(
+            @RequestParam(required = false) String cpfVendedor
+    ) {
         try {
-            EstatisticasDTO estatisticas = clienteService.obterEstatisticas();
+            EstatisticasDTO estatisticas = clienteService.obterEstatisticas(cpfVendedor);
             return ResponseEntity.ok(estatisticas);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
