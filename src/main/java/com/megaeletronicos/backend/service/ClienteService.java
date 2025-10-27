@@ -91,9 +91,67 @@ public class ClienteService {
         if (clienteExistente.isEmpty()) {
             throw new RuntimeException("Cliente não encontrado");
         }
-        
-        clienteAtualizado.setId(id);
-        return salvar(clienteAtualizado);
+    
+        Cliente cliente = clienteExistente.get();
+    
+        // Atualizar apenas campos fornecidos (não nulos)
+        if (clienteAtualizado.getNome() != null) cliente.setNome(clienteAtualizado.getNome());
+        if (clienteAtualizado.getEmail() != null) cliente.setEmail(clienteAtualizado.getEmail());
+        if (clienteAtualizado.getCpf() != null) cliente.setCpf(clienteAtualizado.getCpf());
+        if (clienteAtualizado.getEstadoCivil() != null) cliente.setEstadoCivil(clienteAtualizado.getEstadoCivil());
+        if (clienteAtualizado.getDataNascimento() != null) cliente.setDataNascimento(clienteAtualizado.getDataNascimento());
+        if (clienteAtualizado.getWhatsapp() != null) cliente.setWhatsapp(clienteAtualizado.getWhatsapp());
+        if (clienteAtualizado.getCpfVendedor() != null) cliente.setCpfVendedor(clienteAtualizado.getCpfVendedor());
+    
+        if (clienteAtualizado.getRg() != null) cliente.setRg(clienteAtualizado.getRg());
+        if (clienteAtualizado.getTelefone() != null) cliente.setTelefone(clienteAtualizado.getTelefone());
+        if (clienteAtualizado.getCep() != null) cliente.setCep(clienteAtualizado.getCep());
+        if (clienteAtualizado.getRua() != null) cliente.setRua(clienteAtualizado.getRua());
+        if (clienteAtualizado.getNumero() != null) cliente.setNumero(clienteAtualizado.getNumero());
+        if (clienteAtualizado.getComplemento() != null) cliente.setComplemento(clienteAtualizado.getComplemento());
+        if (clienteAtualizado.getBairro() != null) cliente.setBairro(clienteAtualizado.getBairro());
+        if (clienteAtualizado.getCidade() != null) cliente.setCidade(clienteAtualizado.getCidade());
+        if (clienteAtualizado.getEstado() != null) cliente.setEstado(clienteAtualizado.getEstado());
+    
+        if (clienteAtualizado.getNomeMae() != null) cliente.setNomeMae(clienteAtualizado.getNomeMae());
+        if (clienteAtualizado.getSexo() != null) cliente.setSexo(clienteAtualizado.getSexo());
+        if (clienteAtualizado.getNaturezaOcupacao() != null) cliente.setNaturezaOcupacao(clienteAtualizado.getNaturezaOcupacao());
+        if (clienteAtualizado.getProfissao() != null) cliente.setProfissao(clienteAtualizado.getProfissao());
+    
+        if (clienteAtualizado.getNomeEmpresa() != null) cliente.setNomeEmpresa(clienteAtualizado.getNomeEmpresa());
+        if (clienteAtualizado.getRendaMensal() != null) cliente.setRendaMensal(clienteAtualizado.getRendaMensal());
+        if (clienteAtualizado.getComprovacaoRenda() != null) cliente.setComprovacaoRenda(clienteAtualizado.getComprovacaoRenda());
+    
+        // Fotos/documentos: só atualiza se vier valor (não nulo)
+        if (clienteAtualizado.getFotoDocumento() != null) cliente.setFotoDocumento(clienteAtualizado.getFotoDocumento());
+        if (clienteAtualizado.getFotoSelfie() != null) cliente.setFotoSelfie(clienteAtualizado.getFotoSelfie());
+        if (clienteAtualizado.getDocumentoPessoal() != null) cliente.setDocumentoPessoal(clienteAtualizado.getDocumentoPessoal());
+        if (clienteAtualizado.getExtratoBancarioComprovanteRenda() != null) cliente.setExtratoBancarioComprovanteRenda(clienteAtualizado.getExtratoBancarioComprovanteRenda());
+        if (clienteAtualizado.getComprovanteEndereco() != null) cliente.setComprovanteEndereco(clienteAtualizado.getComprovanteEndereco());
+    
+        if (clienteAtualizado.getPossuiCarteiraAssinadaOuAposentado() != null)
+            cliente.setPossuiCarteiraAssinadaOuAposentado(clienteAtualizado.getPossuiCarteiraAssinadaOuAposentado());
+    
+        if (clienteAtualizado.getReferencia1Nome() != null) cliente.setReferencia1Nome(clienteAtualizado.getReferencia1Nome());
+        if (clienteAtualizado.getReferencia1Relacao() != null) cliente.setReferencia1Relacao(clienteAtualizado.getReferencia1Relacao());
+        if (clienteAtualizado.getReferencia1Whatsapp() != null) cliente.setReferencia1Whatsapp(clienteAtualizado.getReferencia1Whatsapp());
+        if (clienteAtualizado.getReferencia1Conhece() != null) cliente.setReferencia1Conhece(clienteAtualizado.getReferencia1Conhece());
+    
+        if (clienteAtualizado.getReferencia2Nome() != null) cliente.setReferencia2Nome(clienteAtualizado.getReferencia2Nome());
+        if (clienteAtualizado.getReferencia2Relacao() != null) cliente.setReferencia2Relacao(clienteAtualizado.getReferencia2Relacao());
+        if (clienteAtualizado.getReferencia2Whatsapp() != null) cliente.setReferencia2Whatsapp(clienteAtualizado.getReferencia2Whatsapp());
+        if (clienteAtualizado.getReferencia2Conhece() != null) cliente.setReferencia2Conhece(clienteAtualizado.getReferencia2Conhece());
+    
+        if (clienteAtualizado.getReferencia3Nome() != null) cliente.setReferencia3Nome(clienteAtualizado.getReferencia3Nome());
+        if (clienteAtualizado.getReferencia3Relacao() != null) cliente.setReferencia3Relacao(clienteAtualizado.getReferencia3Relacao());
+        if (clienteAtualizado.getReferencia3Whatsapp() != null) cliente.setReferencia3Whatsapp(clienteAtualizado.getReferencia3Whatsapp());
+        if (clienteAtualizado.getReferencia3Conhece() != null) cliente.setReferencia3Conhece(clienteAtualizado.getReferencia3Conhece());
+    
+        if (clienteAtualizado.getObservacao() != null) cliente.setObservacao(clienteAtualizado.getObservacao());
+        if (clienteAtualizado.getStatus() != null) cliente.setStatus(clienteAtualizado.getStatus());
+    
+        // Salvar com validações (email/cpf duplicados) preservando campos não enviados
+        return salvar(cliente);
     }
     
     // Novos métodos para estatísticas e filtros
