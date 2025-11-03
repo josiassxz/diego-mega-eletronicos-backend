@@ -422,9 +422,11 @@ public class ClienteController {
                     erro.put("erro", "Vendedor com CPF " + cpfVendedor + " não encontrado");
                     return ResponseEntity.badRequest().body(erro);
                 }
+                
+                // Só atualizar o cpfVendedor se foi fornecido e é válido
+                cliente.setCpfVendedor(cpfVendedor);
             }
-            
-            cliente.setCpfVendedor(cpfVendedor);
+            // Se cpfVendedor não foi fornecido ou está vazio, preservar o valor existente
             cliente.setCep(cep);
             cliente.setRua(rua);
             cliente.setNumero(numero);
